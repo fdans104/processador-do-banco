@@ -1,0 +1,211 @@
+[gd_scene format=3 uid="uid://cbsb5fnlumoq8"]
+
+[ext_resource type="Script" uid="uid://cwjn2fim1p6e7" path="res://scripts/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://rcarecesucy8" path="res://scripts/campo_consulta.gd" id="2_campo"]
+[ext_resource type="Script" uid="uid://ckeem6gu6ddfc" path="res://scripts/scanlines.gd" id="3_scan"]
+
+[sub_resource type="SystemFont" id="SystemFont_fonte"]
+font_names = PackedStringArray("Consolas", "Courier New", "monospace")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vazio"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
+content_margin_left = 24.0
+content_margin_top = 20.0
+content_margin_right = 24.0
+content_margin_bottom = 20.0
+bg_color = Color(0.02, 0.05, 0.03, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 1, 0.4, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_botao"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.03, 0.1, 0.05, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.1, 0.55, 0.25, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_botao_destaque"]
+content_margin_left = 14.0
+content_margin_top = 8.0
+content_margin_right = 14.0
+content_margin_bottom = 8.0
+bg_color = Color(0.07, 0.22, 0.11, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 1, 0.4, 1)
+
+[node name="Main" type="Control" unique_id=1005812873]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main")
+
+[node name="Fundo" type="ColorRect" parent="." unique_id=1705208700]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.05, 0.03, 1)
+
+[node name="Margem" type="MarginContainer" parent="." unique_id=1910143617]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Coluna" type="VBoxContainer" parent="Margem" unique_id=852297785]
+layout_mode = 2
+
+[node name="Saida" type="RichTextLabel" parent="Margem/Coluna" unique_id=165723204]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 2
+theme_override_colors/default_color = Color(0.2, 1, 0.4, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+scroll_following = true
+selection_enabled = true
+
+[node name="Linha" type="HBoxContainer" parent="Margem/Coluna" unique_id=2005199688]
+layout_mode = 2
+
+[node name="Prompt" type="Label" parent="Margem/Coluna/Linha" unique_id=2060746210]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
+text = "sql@banco:~$ "
+
+[node name="Entrada" type="TextEdit" parent="Margem/Coluna/Linha" unique_id=1442435216]
+custom_minimum_size = Vector2(0, 96)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/caret_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_placeholder_color = Color(0.1, 0.55, 0.25, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vazio")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vazio")
+placeholder_text = "cole ou digite uma consulta SQL | ENTER envia | SHIFT+ENTER nova linha | CIMA = comando anterior | P (campo vazio) = consultas de exemplo"
+wrap_mode = 1
+script = ExtResource("2_campo")
+
+[node name="Scanlines" type="Control" parent="." unique_id=1532808689]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_scan")
+
+[node name="PainelConsultas" type="PanelContainer" parent="." unique_id=1823129919]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 48.0
+offset_right = -48.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+
+[node name="Conteudo" type="VBoxContainer" parent="PainelConsultas" unique_id=2041706875]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Titulo" type="Label" parent="PainelConsultas/Conteudo" unique_id=993702083]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 18
+text = "CONSULTAS DE EXEMPLO // clique para executar // P ou ESC fecha"
+
+[node name="Lista" type="VBoxContainer" parent="PainelConsultas/Conteudo" unique_id=298242047]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Consulta1" type="Button" parent="PainelConsultas/Conteudo/Lista" unique_id=770783152]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "1 - Pedidos do tipo de cliente 1 com valor zero"
+alignment = 0
+metadata/sql = "Select cliente.nome, pedido.idPedido, pedido.DataPedido, pedido.ValorTotalPedido from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente where cliente.TipoCliente_idTipoCliente = 1 and pedido.ValorTotalPedido = 0;"
+
+[node name="Consulta2" type="Button" parent="PainelConsultas/Conteudo/Lista" unique_id=383032865]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "2 - Pedidos abertos do tipo 1 com valor zero (Status)"
+alignment = 0
+metadata/sql = "Select cliente.nome, pedido.idPedido, pedido.DataPedido, Status.descricao, pedido.ValorTotalPedido from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente Join Status on Status.idstatus = Pedido.status_idstatus where Status.descricao = 'Aberto' and cliente.TipoCliente_idTipoCliente = 1 and pedido.ValorTotalPedido = 0;"
+
+[node name="Consulta3" type="Button" parent="PainelConsultas/Conteudo/Lista" unique_id=468044630]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "3 - Pedidos abertos com produto em estoque (4 JOINs)"
+alignment = 0
+metadata/sql = "Select cliente.nome, pedido.idPedido, pedido.DataPedido, Status.descricao, pedido.ValorTotalPedido, produto.QuantEstoque from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente Join Status on Status.idstatus = Pedido.status_idstatus Join pedido_has_produto on pedido.idPedido = pedido_has_produto.Pedido_idPedido Join produto on produto.idProduto = pedido_has_produto.Produto_idProduto where Status.descricao = 'Aberto' and cliente.TipoCliente_idTipoCliente = 1 and pedido.ValorTotalPedido = 0 and produto.QuantEstoque > 0;"
+
+[node name="Consulta4" type="Button" parent="PainelConsultas/Conteudo/Lista" unique_id=1944790222]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "4 - Consulta completa: cliente, endereco, categoria (7 JOINs)"
+alignment = 0
+metadata/sql = "Select cliente.nome, tipocliente.descricao, pedido.idPedido, pedido.DataPedido, Status.descricao, pedido.ValorTotalPedido, categoria.descricao, produto.QuantEstoque from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente Join tipocliente on cliente.tipocliente_idtipocliente = tipocliente.idTipoCliente Join endereco on cliente.idcliente = endereco.Cliente_idCliente Join Status on Status.idstatus = Pedido.status_idstatus Join pedido_has_produto on pedido.idPedido = pedido_has_produto.Pedido_idPedido Join produto on produto.idProduto = pedido_has_produto.Produto_idProduto Join categoria on categoria.idcategoria = produto.Categoria_idCategoria where Status.descricao = 'Aberto' and cliente.email = 'Luffy@gmail.com' and pedido.ValorTotalPedido = 0 and produto.preco > 5000 and endereco.cidade = 'Gramado';"
