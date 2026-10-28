@@ -1,25 +1,14 @@
 [gd_scene format=3 uid="uid://cbsb5fnlumoq8"]
 
-[ext_resource type="Script" uid="uid://cwjn2fim1p6e7" path="res://scripts/main.gd" id="1_main"]
-[ext_resource type="Script" uid="uid://rcarecesucy8" path="res://scripts/campo_consulta.gd" id="2_campo"]
-[ext_resource type="Script" uid="uid://ckeem6gu6ddfc" path="res://scripts/scanlines.gd" id="3_scan"]
+[ext_resource type="Script" uid="uid://cwjn2fim1p6e7" path="res://app/main.gd" id="1_main"]
+[ext_resource type="Script" uid="uid://rcarecesucy8" path="res://hu1_entrada_validacao/campo_consulta.gd" id="2_campo"]
+[ext_resource type="Script" uid="uid://ckeem6gu6ddfc" path="res://app/scanlines.gd" id="3_scan"]
+[ext_resource type="Script" uid="uid://c54hx46sbj4x7" path="res://hu1_entrada_validacao/banco_painel.gd" id="4_banco"]
+[ext_resource type="Script" uid="uid://dg2b7jmgeuwxi" path="res://hu3_grafo_operadores/grafo_view.gd" id="5_grafo"]
 
 [sub_resource type="SystemFont" id="SystemFont_fonte"]
 font_names = PackedStringArray("Consolas", "Courier New", "monospace")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vazio"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
-content_margin_left = 24.0
-content_margin_top = 20.0
-content_margin_right = 24.0
-content_margin_bottom = 20.0
-bg_color = Color(0.02, 0.05, 0.03, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 1, 0.4, 1)
+subpixel_positioning = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_botao"]
 content_margin_left = 14.0
@@ -45,7 +34,33 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.2, 1, 0.4, 1)
 
-[node name="Main" type="Control" unique_id=1005812873]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_algebra"]
+content_margin_left = 16.0
+content_margin_top = 12.0
+content_margin_right = 16.0
+content_margin_bottom = 12.0
+bg_color = Color(0.04, 0.07, 0.11, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.85, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vazio"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_painel"]
+content_margin_left = 24.0
+content_margin_top = 20.0
+content_margin_right = 24.0
+content_margin_bottom = 20.0
+bg_color = Color(0.02, 0.05, 0.03, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 1, 0.4, 1)
+
+[node name="Main" type="Control" unique_id=758544147]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,7 +69,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_main")
 
-[node name="Fundo" type="ColorRect" parent="." unique_id=1705208700]
+[node name="Fundo" type="ColorRect" parent="." unique_id=113042219]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +78,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.02, 0.05, 0.03, 1)
 
-[node name="Margem" type="MarginContainer" parent="." unique_id=1910143617]
+[node name="Margem" type="MarginContainer" parent="." unique_id=294679638]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -75,10 +90,49 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="Coluna" type="VBoxContainer" parent="Margem" unique_id=852297785]
+[node name="Coluna" type="VBoxContainer" parent="Margem" unique_id=791939914]
 layout_mode = 2
 
-[node name="Saida" type="RichTextLabel" parent="Margem/Coluna" unique_id=165723204]
+[node name="Barra" type="HBoxContainer" parent="Margem/Coluna" unique_id=197220225]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BotaoConsultas" type="Button" parent="Margem/Coluna/Barra" unique_id=291456312]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "CONSULTAS [F12]"
+
+[node name="BotaoBanco" type="Button" parent="Margem/Coluna/Barra" unique_id=2051125036]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "BANCO [F11]"
+
+[node name="Atalhos" type="Label" parent="Margem/Coluna/Barra" unique_id=1166490842]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.45, 0.55, 0.62, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 13
+text = "ENTER executa · ENTER vazio = próximo passo · ↑ histórico"
+horizontal_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="Saida" type="RichTextLabel" parent="Margem/Coluna" unique_id=815081849]
 layout_mode = 2
 size_flags_vertical = 3
 focus_mode = 2
@@ -89,10 +143,288 @@ bbcode_enabled = true
 scroll_following = true
 selection_enabled = true
 
-[node name="Linha" type="HBoxContainer" parent="Margem/Coluna" unique_id=2005199688]
+[node name="PainelEtapas" type="PanelContainer" parent="Margem/Coluna" unique_id=829309132]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_algebra")
+
+[node name="Etapas" type="VBoxContainer" parent="Margem/Coluna/PainelEtapas" unique_id=1715589203]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BarraPassos" type="HBoxContainer" parent="Margem/Coluna/PainelEtapas/Etapas" unique_id=425161342]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Passo1" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=1605292364]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "1 · VALIDAR"
+
+[node name="Seta1" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=2016712508]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "─▶"
+
+[node name="Passo2" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=977709262]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "2 · CANÔNICA"
+
+[node name="Seta2" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=38705196]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "─▶"
+
+[node name="Passo3" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=1181458201]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "3 · GRAFO"
+
+[node name="Seta3" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=1764606230]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "─▶"
+
+[node name="Passo4" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=1260639043]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "4 · OTIMIZAR"
+
+[node name="Seta4" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=1425801411]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "─▶"
+
+[node name="Passo5" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=860225743]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "5 · PASSO A PASSO"
+
+[node name="Espaco" type="Control" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=1330426351]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BotaoVoltar" type="Button" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=1488860289]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.95, 1, 1)
+theme_override_colors/font_disabled_color = Color(0.32, 0.4, 0.46, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "◀ VOLTAR"
+
+[node name="BotaoProximo" type="Button" parent="Margem/Coluna/PainelEtapas/Etapas/BarraPassos" unique_id=1048667332]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.35, 1)
+theme_override_colors/font_hover_color = Color(1, 0.92, 0.7, 1)
+theme_override_colors/font_disabled_color = Color(0.32, 0.4, 0.46, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "PRÓXIMO ▶"
+
+[node name="TextoEtapa" type="RichTextLabel" parent="Margem/Coluna/PainelEtapas/Etapas" unique_id=393480236]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 2
+theme_override_colors/default_color = Color(0.88, 0.92, 0.97, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+selection_enabled = true
+
+[node name="AreaGrafo" type="VBoxContainer" parent="Margem/Coluna/PainelEtapas/Etapas" unique_id=692712411]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="Legenda" type="RichTextLabel" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo" unique_id=1689786867]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.75, 0.82, 0.88, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="BarraHeuristicas" type="HBoxContainer" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo" unique_id=345447840]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BotaoEtapaAnterior" type="Button" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/BarraHeuristicas" unique_id=151705661]
+layout_mode = 2
+tooltip_text = "etapa anterior"
+theme_override_colors/font_color = Color(1, 0.8, 0.35, 1)
+theme_override_colors/font_hover_color = Color(1, 0.92, 0.7, 1)
+theme_override_colors/font_disabled_color = Color(0.32, 0.4, 0.46, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "◀"
+
+[node name="BotaoReproduzir" type="Button" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/BarraHeuristicas" unique_id=1864559094]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.35, 1)
+theme_override_colors/font_hover_color = Color(1, 0.92, 0.7, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "❚❚ PAUSAR"
+
+[node name="BotaoEtapaProxima" type="Button" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/BarraHeuristicas" unique_id=1721372028]
+layout_mode = 2
+tooltip_text = "próxima etapa"
+theme_override_colors/font_color = Color(1, 0.8, 0.35, 1)
+theme_override_colors/font_hover_color = Color(1, 0.92, 0.7, 1)
+theme_override_colors/font_disabled_color = Color(0.32, 0.4, 0.46, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "▶"
+
+[node name="LinhaDoTempo" type="RichTextLabel" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/BarraHeuristicas" unique_id=1210003009]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.42, 0.5, 0.58, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Corpo" type="HBoxContainer" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo" unique_id=1978937690]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Rolagem" type="ScrollContainer" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/Corpo" unique_id=915753453]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Grafo" type="Control" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/Corpo/Rolagem" unique_id=1716118248]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("5_grafo")
+fonte = SubResource("SystemFont_fonte")
+
+[node name="Lateral" type="RichTextLabel" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/Corpo" unique_id=261595143]
+visible = false
+custom_minimum_size = Vector2(430, 0)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 2
+theme_override_colors/default_color = Color(0.88, 0.92, 0.97, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+selection_enabled = true
+
+[node name="BarraZoom" type="HBoxContainer" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo" unique_id=107748277]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="BotaoMenos" type="Button" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/BarraZoom" unique_id=1613670768]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+tooltip_text = "diminuir zoom"
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.95, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "−"
+
+[node name="Escala" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/BarraZoom" unique_id=1965135167]
+custom_minimum_size = Vector2(52, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 14
+text = "100%"
+horizontal_alignment = 1
+
+[node name="BotaoMais" type="Button" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/BarraZoom" unique_id=1103832735]
+custom_minimum_size = Vector2(36, 0)
+layout_mode = 2
+tooltip_text = "aumentar zoom"
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.95, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "+"
+
+[node name="BotaoAjustar" type="Button" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/BarraZoom" unique_id=1572877429]
+layout_mode = 2
+tooltip_text = "mostrar o grafo inteiro"
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.95, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "AJUSTAR"
+
+[node name="Detalhe" type="Label" parent="Margem/Coluna/PainelEtapas/Etapas/AreaGrafo/BarraZoom" unique_id=418389167]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.6, 0.7, 0.78, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 14
+text = " "
+autowrap_mode = 3
+
+[node name="Linha" type="HBoxContainer" parent="Margem/Coluna" unique_id=351439376]
 layout_mode = 2
 
-[node name="Prompt" type="Label" parent="Margem/Coluna/Linha" unique_id=2060746210]
+[node name="Prompt" type="Label" parent="Margem/Coluna/Linha" unique_id=1864286113]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
@@ -100,7 +432,7 @@ theme_override_fonts/font = SubResource("SystemFont_fonte")
 theme_override_font_sizes/font_size = 16
 text = "sql@banco:~$ "
 
-[node name="Entrada" type="TextEdit" parent="Margem/Coluna/Linha" unique_id=1442435216]
+[node name="Entrada" type="TextEdit" parent="Margem/Coluna/Linha" unique_id=365580557]
 custom_minimum_size = Vector2(0, 96)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -111,11 +443,11 @@ theme_override_fonts/font = SubResource("SystemFont_fonte")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxEmpty_vazio")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vazio")
-placeholder_text = "cole ou digite uma consulta SQL | ENTER envia | SHIFT+ENTER nova linha | CIMA = comando anterior | P (campo vazio) = consultas de exemplo"
+placeholder_text = "digite ou cole uma consulta SQL e pressione ENTER"
 wrap_mode = 1
 script = ExtResource("2_campo")
 
-[node name="Scanlines" type="Control" parent="." unique_id=1532808689]
+[node name="Scanlines" type="Control" parent="." unique_id=1651887760]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -125,7 +457,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("3_scan")
 
-[node name="PainelConsultas" type="PanelContainer" parent="." unique_id=1823129919]
+[node name="PainelConsultas" type="PanelContainer" parent="." unique_id=2063913416]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -139,73 +471,459 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
 
-[node name="Conteudo" type="VBoxContainer" parent="PainelConsultas" unique_id=2041706875]
+[node name="Conteudo" type="VBoxContainer" parent="PainelConsultas" unique_id=138690939]
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 12
 
-[node name="Titulo" type="Label" parent="PainelConsultas/Conteudo" unique_id=993702083]
+[node name="Titulo" type="Label" parent="PainelConsultas/Conteudo" unique_id=366582082]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
 theme_override_fonts/font = SubResource("SystemFont_fonte")
 theme_override_font_sizes/font_size = 18
-text = "CONSULTAS DE EXEMPLO // clique para executar // P ou ESC fecha"
+text = "CONSULTAS DE EXEMPLO"
 
-[node name="Lista" type="VBoxContainer" parent="PainelConsultas/Conteudo" unique_id=298242047]
+[node name="Status" type="Label" parent="PainelConsultas/Conteudo" unique_id=504766803]
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 14
+text = " "
 
-[node name="Consulta1" type="Button" parent="PainelConsultas/Conteudo/Lista" unique_id=770783152]
+[node name="Rolagem" type="ScrollContainer" parent="PainelConsultas/Conteudo" unique_id=2102156752]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Lista" type="VBoxContainer" parent="PainelConsultas/Conteudo/Rolagem" unique_id=703953687]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 18
+
+[node name="Consulta1" type="VBoxContainer" parent="PainelConsultas/Conteudo/Rolagem/Lista" unique_id=1634099233]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Rotulo" type="Label" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta1" unique_id=981653055]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
-theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
 theme_override_fonts/font = SubResource("SystemFont_fonte")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
-theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
-theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
 text = "1 - Pedidos do tipo de cliente 1 com valor zero"
-alignment = 0
-metadata/sql = "Select cliente.nome, pedido.idPedido, pedido.DataPedido, pedido.ValorTotalPedido from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente where cliente.TipoCliente_idTipoCliente = 1 and pedido.ValorTotalPedido = 0;"
 
-[node name="Consulta2" type="Button" parent="PainelConsultas/Conteudo/Lista" unique_id=383032865]
+[node name="Sql" type="TextEdit" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta1" unique_id=2049091330]
+custom_minimum_size = Vector2(0, 78)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 1, 0.9, 1)
+theme_override_colors/font_readonly_color = Color(0.85, 1, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "Select cliente.nome, pedido.idPedido, pedido.DataPedido, pedido.ValorTotalPedido
+from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente
+where cliente.TipoCliente_idTipoCliente = 1 and pedido.ValorTotalPedido = 0;"
+editable = false
+wrap_mode = 1
+
+[node name="Copiar" type="Button" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta1" unique_id=630641754]
+layout_mode = 2
+size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
 theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
 theme_override_fonts/font = SubResource("SystemFont_fonte")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
 theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
 theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "COPIAR"
+
+[node name="Consulta2" type="VBoxContainer" parent="PainelConsultas/Conteudo/Rolagem/Lista" unique_id=1810017789]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Rotulo" type="Label" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta2" unique_id=918781308]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
 text = "2 - Pedidos abertos do tipo 1 com valor zero (Status)"
-alignment = 0
-metadata/sql = "Select cliente.nome, pedido.idPedido, pedido.DataPedido, Status.descricao, pedido.ValorTotalPedido from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente Join Status on Status.idstatus = Pedido.status_idstatus where Status.descricao = 'Aberto' and cliente.TipoCliente_idTipoCliente = 1 and pedido.ValorTotalPedido = 0;"
 
-[node name="Consulta3" type="Button" parent="PainelConsultas/Conteudo/Lista" unique_id=468044630]
+[node name="Sql" type="TextEdit" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta2" unique_id=2010361728]
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 1, 0.9, 1)
+theme_override_colors/font_readonly_color = Color(0.85, 1, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "Select cliente.nome, pedido.idPedido, pedido.DataPedido, Status.descricao, pedido.ValorTotalPedido
+from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente
+Join Status on Status.idstatus = Pedido.status_idstatus
+where Status.descricao = 'Aberto' and cliente.TipoCliente_idTipoCliente = 1 and pedido.ValorTotalPedido = 0;"
+editable = false
+wrap_mode = 1
+
+[node name="Copiar" type="Button" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta2" unique_id=2061304504]
+layout_mode = 2
+size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
 theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
 theme_override_fonts/font = SubResource("SystemFont_fonte")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
 theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
 theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "COPIAR"
+
+[node name="Consulta3" type="VBoxContainer" parent="PainelConsultas/Conteudo/Rolagem/Lista" unique_id=1331970281]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Rotulo" type="Label" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta3" unique_id=1027868862]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
 text = "3 - Pedidos abertos com produto em estoque (4 JOINs)"
-alignment = 0
-metadata/sql = "Select cliente.nome, pedido.idPedido, pedido.DataPedido, Status.descricao, pedido.ValorTotalPedido, produto.QuantEstoque from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente Join Status on Status.idstatus = Pedido.status_idstatus Join pedido_has_produto on pedido.idPedido = pedido_has_produto.Pedido_idPedido Join produto on produto.idProduto = pedido_has_produto.Produto_idProduto where Status.descricao = 'Aberto' and cliente.TipoCliente_idTipoCliente = 1 and pedido.ValorTotalPedido = 0 and produto.QuantEstoque > 0;"
 
-[node name="Consulta4" type="Button" parent="PainelConsultas/Conteudo/Lista" unique_id=1944790222]
+[node name="Sql" type="TextEdit" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta3" unique_id=2051379427]
+custom_minimum_size = Vector2(0, 140)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 1, 0.9, 1)
+theme_override_colors/font_readonly_color = Color(0.85, 1, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "Select cliente.nome, pedido.idPedido, pedido.DataPedido, Status.descricao, pedido.ValorTotalPedido, produto.QuantEstoque
+from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente
+Join Status on Status.idstatus = Pedido.status_idstatus
+Join pedido_has_produto on pedido.idPedido = pedido_has_produto.Pedido_idPedido
+Join produto on produto.idProduto = pedido_has_produto.Produto_idProduto
+where Status.descricao = 'Aberto' and cliente.TipoCliente_idTipoCliente = 1 and pedido.ValorTotalPedido = 0 and produto.QuantEstoque > 0;"
+editable = false
+wrap_mode = 1
+
+[node name="Copiar" type="Button" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta3" unique_id=1706419306]
+layout_mode = 2
+size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
 theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
 theme_override_fonts/font = SubResource("SystemFont_fonte")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
 theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
 theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "COPIAR"
+
+[node name="Consulta4" type="VBoxContainer" parent="PainelConsultas/Conteudo/Rolagem/Lista" unique_id=1003699641]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Rotulo" type="Label" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta4" unique_id=548673427]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
 text = "4 - Consulta completa: cliente, endereco, categoria (7 JOINs)"
-alignment = 0
-metadata/sql = "Select cliente.nome, tipocliente.descricao, pedido.idPedido, pedido.DataPedido, Status.descricao, pedido.ValorTotalPedido, categoria.descricao, produto.QuantEstoque from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente Join tipocliente on cliente.tipocliente_idtipocliente = tipocliente.idTipoCliente Join endereco on cliente.idcliente = endereco.Cliente_idCliente Join Status on Status.idstatus = Pedido.status_idstatus Join pedido_has_produto on pedido.idPedido = pedido_has_produto.Pedido_idPedido Join produto on produto.idProduto = pedido_has_produto.Produto_idProduto Join categoria on categoria.idcategoria = produto.Categoria_idCategoria where Status.descricao = 'Aberto' and cliente.email = 'Luffy@gmail.com' and pedido.ValorTotalPedido = 0 and produto.preco > 5000 and endereco.cidade = 'Gramado';"
+
+[node name="Sql" type="TextEdit" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta4" unique_id=742960151]
+custom_minimum_size = Vector2(0, 220)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 1, 0.9, 1)
+theme_override_colors/font_readonly_color = Color(0.85, 1, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "Select cliente.nome, tipocliente.descricao, pedido.idPedido, pedido.DataPedido, Status.descricao, pedido.ValorTotalPedido, categoria.descricao, produto.QuantEstoque
+from Cliente Join pedido on cliente.idcliente = pedido.Cliente_idCliente
+Join tipocliente on cliente.tipocliente_idtipocliente = tipocliente.idTipoCliente
+Join endereco on cliente.idcliente = endereco.Cliente_idCliente
+Join Status on Status.idstatus = Pedido.status_idstatus
+Join pedido_has_produto on pedido.idPedido = pedido_has_produto.Pedido_idPedido
+Join produto on produto.idProduto = pedido_has_produto.Produto_idProduto
+Join categoria on categoria.idcategoria = produto.Categoria_idCategoria
+where Status.descricao = 'Aberto' and cliente.email = 'Luffy@gmail.com' and pedido.ValorTotalPedido = 0
+and produto.preco > 5000 and endereco.cidade = 'Gramado';"
+editable = false
+wrap_mode = 1
+
+[node name="Copiar" type="Button" parent="PainelConsultas/Conteudo/Rolagem/Lista/Consulta4" unique_id=1857585507]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "COPIAR"
+
+[node name="Fechar" type="Button" parent="PainelConsultas/Conteudo" unique_id=1064496457]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "FECHAR [F12 / ESC]"
+
+[node name="PainelBanco" type="PanelContainer" parent="." unique_id=747258486]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 48.0
+offset_top = 48.0
+offset_right = -48.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_painel")
+script = ExtResource("4_banco")
+
+[node name="Conteudo" type="VBoxContainer" parent="PainelBanco" unique_id=309906633]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Titulo" type="Label" parent="PainelBanco/Conteudo" unique_id=1536219525]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 18
+text = "BANCO DE DADOS"
+
+[node name="Corpo" type="HBoxContainer" parent="PainelBanco/Conteudo" unique_id=1160773830]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="ColTabelas" type="VBoxContainer" parent="PainelBanco/Conteudo/Corpo" unique_id=1036382175]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="RotuloTabelas" type="Label" parent="PainelBanco/Conteudo/Corpo/ColTabelas" unique_id=1244583665]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "TABELAS"
+
+[node name="ListaTabelas" type="ItemList" parent="PainelBanco/Conteudo/Corpo/ColTabelas" unique_id=331872933]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85, 1, 0.9, 1)
+theme_override_colors/font_selected_color = Color(0.85, 1, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/panel = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vazio")
+theme_override_styles/selected = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/selected_focus = SubResource("StyleBoxFlat_botao_destaque")
+
+[node name="LinhaNovaTabela" type="HBoxContainer" parent="PainelBanco/Conteudo/Corpo/ColTabelas" unique_id=1050263695]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CampoNovaTabela" type="LineEdit" parent="PainelBanco/Conteudo/Corpo/ColTabelas/LinhaNovaTabela" unique_id=1079186035]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_placeholder_color = Color(0.1, 0.55, 0.25, 1)
+theme_override_colors/caret_color = Color(0.2, 1, 0.4, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+placeholder_text = "nome da nova tabela"
+
+[node name="BotaoCriarTabela" type="Button" parent="PainelBanco/Conteudo/Corpo/ColTabelas/LinhaNovaTabela" unique_id=1019427385]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "CRIAR TABELA"
+
+[node name="BotaoExcluirTabela" type="Button" parent="PainelBanco/Conteudo/Corpo/ColTabelas" unique_id=1039445015]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+theme_override_colors/font_hover_color = Color(1, 0.75, 0.75, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "EXCLUIR TABELA SELECIONADA"
+
+[node name="ColAtributos" type="VBoxContainer" parent="PainelBanco/Conteudo/Corpo" unique_id=705069118]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="RotuloAtributos" type="Label" parent="PainelBanco/Conteudo/Corpo/ColAtributos" unique_id=1088973917]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+text = "ATRIBUTOS"
+
+[node name="ListaAtributos" type="ItemList" parent="PainelBanco/Conteudo/Corpo/ColAtributos" unique_id=417428789]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.85, 1, 0.9, 1)
+theme_override_colors/font_selected_color = Color(0.85, 1, 0.9, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/panel = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vazio")
+theme_override_styles/selected = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/selected_focus = SubResource("StyleBoxFlat_botao_destaque")
+
+[node name="LinhaNovoAtributo" type="HBoxContainer" parent="PainelBanco/Conteudo/Corpo/ColAtributos" unique_id=1596495807]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CampoNovoAtributo" type="LineEdit" parent="PainelBanco/Conteudo/Corpo/ColAtributos/LinhaNovoAtributo" unique_id=526476975]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_placeholder_color = Color(0.1, 0.55, 0.25, 1)
+theme_override_colors/caret_color = Color(0.2, 1, 0.4, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+placeholder_text = "nome do novo atributo"
+
+[node name="BotaoAdicionarAtributo" type="Button" parent="PainelBanco/Conteudo/Corpo/ColAtributos/LinhaNovoAtributo" unique_id=2006308807]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "ADICIONAR ATRIBUTO"
+
+[node name="BotaoExcluirAtributo" type="Button" parent="PainelBanco/Conteudo/Corpo/ColAtributos" unique_id=123979573]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 0.45, 0.45, 1)
+theme_override_colors/font_hover_color = Color(1, 0.75, 0.75, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "EXCLUIR ATRIBUTO SELECIONADO"
+
+[node name="Status" type="Label" parent="PainelBanco/Conteudo" unique_id=752565687]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 14
+text = " "
+
+[node name="Rodape" type="HBoxContainer" parent="PainelBanco/Conteudo" unique_id=287781139]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="BotaoRestaurar" type="Button" parent="PainelBanco/Conteudo/Rodape" unique_id=684577106]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "RESTAURAR MODELO PADRÃO"
+
+[node name="BotaoFechar" type="Button" parent="PainelBanco/Conteudo/Rodape" unique_id=1438636946]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.4, 1)
+theme_override_colors/font_hover_color = Color(0.8, 1, 0.85, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "FECHAR [F11 / ESC]"
+
+[node name="TimerEtapas" type="Timer" parent="." unique_id=1841912882]
+wait_time = 2.8
+
+[node name="PainelNo" type="PanelContainer" parent="." unique_id=1113929587]
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -560.0
+offset_top = 60.0
+offset_right = -24.0
+offset_bottom = 340.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_algebra")
+
+[node name="Conteudo" type="VBoxContainer" parent="PainelNo" unique_id=737486646]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Cabecalho" type="HBoxContainer" parent="PainelNo/Conteudo" unique_id=1519973199]
+layout_mode = 2
+
+[node name="Titulo" type="Label" parent="PainelNo/Conteudo/Cabecalho" unique_id=2082066344]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 16
+text = "NÓ DO GRAFO"
+
+[node name="BotaoFechar" type="Button" parent="PainelNo/Conteudo/Cabecalho" unique_id=1685829758]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_colors/font_hover_color = Color(0.8, 0.95, 1, 1)
+theme_override_fonts/font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_botao")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/hover = SubResource("StyleBoxFlat_botao_destaque")
+theme_override_styles/focus = SubResource("StyleBoxFlat_botao_destaque")
+text = "✕ FECHAR [ESC]"
+
+[node name="Texto" type="RichTextLabel" parent="PainelNo/Conteudo" unique_id=1733051317]
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 2
+theme_override_colors/default_color = Color(0.88, 0.92, 0.97, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_fonte")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+selection_enabled = true

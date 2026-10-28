@@ -1,8 +1,8 @@
 extends SceneTree
 ## Testes headless do validador (HU1).
-## Executar: godot --headless --path . --script res://tests/test_sql_validator.gd
+## Executar: godot --headless --path . --script res://tests/hu1/test_sql_validator.gd
 
-const SqlValidator := preload("res://scripts/sql_validator.gd")
+const SqlValidator := preload("res://hu1_entrada_validacao/sql_validator.gd")
 
 var _total := 0
 var _falhas := 0
